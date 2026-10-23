@@ -1,8 +1,12 @@
+import { readFileSync } from "node:fs";
 import { copyFile, mkdir, rm } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import * as esbuild from "esbuild";
+import { loadTizenEnv } from "./tizen-env.mjs";
 
 const root = process.cwd();
+loadTizenEnv(root);
+const packageVersion = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8")).version;
 const distDir = resolve(root, "dist");
 // Production builds are minified. An unminified debug build keeps readable
 // names and line structure for diagnosis in the TV's Web Inspector:
@@ -32,6 +36,13 @@ async function main() {
 
   await esbuild.build({
     bundle: true,
+    define: {
+      __IMMICH_TV_APP_VERSION__: JSON.stringify(packageVersion),
+      __IMMICH_TV_DEFAULT_API_KEY__: JSON.stringify(process.env.IMMICH_TV_DEFAULT_API_KEY || ""),
+      __IMMICH_TV_DEFAULT_SERVER_URL__: JSON.stringify(
+        process.env.IMMICH_TV_DEFAULT_SERVER_URL || ""
+      )
+    },
     entryPoints: [resolve(root, "src", "app", "main.ts")],
     format: "iife",
     legalComments: "none",
@@ -39,7 +50,7 @@ async function main() {
     outfile: resolve(distDir, "scripts", "main.js"),
     platform: "browser",
     sourcemap: false,
-    target: ["chrome63"]
+    target: ["chrome56"]
   });
 
   await Promise.all(copiedRuntimeFiles.map(copyRuntimeFile));

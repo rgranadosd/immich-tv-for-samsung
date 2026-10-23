@@ -81,7 +81,7 @@ describe("Search criteria panel", () => {
     expect(f.message()).toContain("Choose people, dates, or both");
     expect(f.control("show")?.getAttribute("aria-disabled")).toBe("true");
     expect(f.control("clear")).toBeNull();
-    expect(byId("search-screen").querySelector("h1")).toBeNull();
+    expect(byId("search-screen").querySelector("h1")?.textContent).toBe("Search");
 
     pressKey(remoteKeys.enter);
     expect(f.onAddPeople).toHaveBeenCalledWith([]);

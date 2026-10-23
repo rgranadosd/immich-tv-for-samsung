@@ -1,4 +1,4 @@
-// Fails on CSS that Tizen 5.0 / Chromium 63 ignores or misreads. This is a
+// Fails on CSS that Tizen 4.0 / Chromium 56 ignores or misreads. This is a
 // deliberately small rule-level scanner, not a full CSS parser: it reads each
 // `selector { declarations }` block (including those inside @media) and
 // resolves a rule's display from any rule with the same selector.
@@ -95,6 +95,19 @@ function checkFile(file, source) {
     for (const [property, value] of rule.declarations) {
       for (const { pattern, reason } of forbiddenProperties) {
         if (pattern.test(property)) fail(rule, reason);
+      }
+
+      if (
+        rule.declarations.get("display") === "grid" &&
+        !new RegExp(
+          `${rule.selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*\\{[^}]*display\\s*:\\s*flex\\s*;[^}]*display\\s*:\\s*grid`,
+          "s"
+        ).test(source)
+      ) {
+        fail(
+          rule,
+          "CSS Grid needs Chrome 57; put display:flex before display:grid as a Chrome 56 fallback"
+        );
       }
 
       for (const { pattern, reason } of forbiddenValues) {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=1920, height=1080, initial-scale=1, user-scalable=no">
-    <title>Immich TV for Samsung</title>
+    <title>Fotos</title>
     <link rel="stylesheet" href="styles/main.css">
   </head>
   <body>
@@ -11,8 +11,8 @@
       <div class="splash-brand">
         <img class="splash-mark" src="assets/immich-tv-logo.png" alt="" width="126" height="126">
         <div>
-          <p class="eyebrow brand-label">Immich TV</p>
-          <h1 id="splash-title">Immich TV for Samsung</h1>
+          <p class="eyebrow brand-label">Fotos</p>
+          <h1 id="splash-title">Your photo library</h1>
         </div>
       </div>
       <p id="splash-status" class="splash-status" aria-live="polite">Starting application...</p>
@@ -20,11 +20,11 @@
       <p class="splash-support">Free to use. Supported by people who enjoy it.</p>
     </section>
 
-    <main id="app-shell" class="app-shell" aria-label="Immich TV" hidden>
+    <main id="app-shell" class="app-shell" aria-label="Fotos" hidden>
       <nav id="top-nav" class="top-nav" aria-label="Primary navigation">
         <div class="top-nav-brand" aria-hidden="true">
           <img class="top-nav-brand-mark" src="assets/immich-tv-logo.png" alt="" width="38" height="38">
-          <span>Immich TV</span>
+          <span>Fotos</span>
         </div>
         <button class="focusable top-nav-item" type="button" data-destination="home" aria-current="false">
           <svg class="top-nav-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -62,6 +62,7 @@
           </svg>
           <span>Refresh</span>
         </button>
+        <span id="top-nav-version" class="top-nav-version" aria-label="Application version"></span>
       </nav>
 
       <div class="shell-content">
@@ -269,12 +270,23 @@
         </section>
 
         <section id="search-screen" class="screen search-screen" aria-label="Search" hidden>
-          <div id="search-panel" class="search-panel"></div>
-          <p id="search-message" class="screen-status search-message" aria-live="polite" data-state="idle"></p>
+          <header class="settings-header search-header">
+            <p class="eyebrow">Fotos</p>
+            <h1>Search</h1>
+            <p class="screen-status top-level-summary">Find moments by people, date, or both.</p>
+          </header>
+          <div class="settings-main search-form-surface">
+            <div id="search-panel" class="search-panel"></div>
+            <p id="search-message" class="screen-status search-message" aria-live="polite" data-state="idle"></p>
+          </div>
         </section>
 
         <section id="connection-screen" class="screen setup-panel" aria-label="Settings" aria-describedby="settings-summary connection-status" hidden>
-        <p id="settings-summary" class="screen-status top-level-summary" data-state="idle" aria-live="polite">Manage connection and display preferences.</p>
+        <header class="settings-header">
+          <p class="eyebrow">Fotos</p>
+          <h1>Settings</h1>
+          <p id="settings-summary" class="screen-status top-level-summary" data-state="idle" aria-live="polite">Connect your library and make the experience yours.</p>
+        </header>
 
         <form class="connection-form" id="connection-form">
           <div class="settings-layout">
@@ -456,7 +468,7 @@
 
     <section id="exit-dialog" class="exit-dialog" role="alertdialog" aria-modal="true" aria-labelledby="exit-dialog-title" aria-describedby="exit-dialog-copy" hidden>
       <div class="exit-dialog-panel">
-        <h2 id="exit-dialog-title">Exit Immich TV?</h2>
+        <h2 id="exit-dialog-title">Exit Fotos?</h2>
         <p id="exit-dialog-copy" class="exit-dialog-copy">Press Back to keep browsing.</p>
         <div class="actions" role="group" aria-label="Exit controls">
           <button id="exit-dialog-stay" class="focusable primary-action" type="button">Keep browsing</button>

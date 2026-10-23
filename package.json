@@ -20,6 +20,7 @@
     "test:coverage": "vitest run --coverage",
     "tizen:deploy": "node scripts/deploy-tizen.mjs",
     "tizen:devices": "sdb devices",
+    "tizen:install": "python3 scripts/install-tizen.py",
     "tizen:package": "npm run build && node scripts/package-tizen.mjs",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.capture.json",
     "capture": "node scripts/capture.mjs"
@@ -41,6 +42,6 @@
     "vitest": "^5.0.3"
   },
   "browserslist": [
-    "chrome 63"
+    "chrome 56"
   ]
 }

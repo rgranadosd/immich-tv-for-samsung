@@ -1,4 +1,4 @@
-// Fails when shipped JavaScript uses DOM members that Tizen 5.0 / Chromium 63
+// Fails when shipped JavaScript uses DOM members that Tizen 4.0 / Chromium 56
 // does not provide. eslint-plugin-compat checks globals and ES built-ins, but it
 // cannot see methods called on element instances (for example
 // `button.toggleAttribute(...)`), and TypeScript's DOM library is not
@@ -7,7 +7,7 @@
 // bundle (npm run check).
 //
 // Versions come from MDN browser-compat-data. Add entries when a newer DOM API
-// becomes tempting; remove one only after confirming Chromium 63 support.
+// becomes tempting; remove one only after confirming Chromium 56 support.
 import { readdir, readFile } from "node:fs/promises";
 import { join, relative, resolve } from "node:path";
 
@@ -79,7 +79,7 @@ async function main() {
       const line = source.slice(0, match.index).split("\n").length;
 
       failures.push(
-        `${relative(root, file)}:${line} uses ${member.name} (${member.since}; target is Chrome 63).`
+        `${relative(root, file)}:${line} uses ${member.name} (${member.since}; target is Chrome 56).`
       );
     }
   }

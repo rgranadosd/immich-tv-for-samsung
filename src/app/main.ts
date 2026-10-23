@@ -1,6 +1,7 @@
 import { consoleLogger } from "../logging/logger";
 import { registerMediaRemoteKeys } from "../platform/tizen/keys";
 import { createAppLifecycle } from "../platform/tizen/lifecycle";
+import { readBuildAppVersion, readBuildConnectionDefaults } from "../platform/build-config";
 import { createLocalAppSettingsStore } from "../storage/app-settings-store";
 import { createLocalConnectionSettingsStore } from "../storage/connection-settings-store";
 import { createLocalViewingHistoryStore } from "../storage/viewing-history-store";
@@ -12,11 +13,20 @@ import { createViewingHistoryService } from "./viewing-history-service";
 // Entry point: creates the real services and platform adapters for the TV
 // runtime, then composes and starts the application.
 
+const versionLabel =
+  typeof document.getElementById === "function" ? document.getElementById("top-nav-version") : null;
+if (versionLabel) {
+  versionLabel.textContent = `v${readBuildAppVersion()}`;
+}
+
 // Let the TV draw the splash before the app is assembled behind it: building
 // every screen and starting Home takes a noticeable moment on the TV, and
 // until this script yields nothing on the page can be drawn.
 afterNextPaint(() => {
-  const store = createLocalConnectionSettingsStore(window.localStorage);
+  const store = createLocalConnectionSettingsStore(
+    window.localStorage,
+    readBuildConnectionDefaults()
+  );
   const fetchImpl = window.fetch.bind(window);
   const lifecycle = createAppLifecycle({ logger: consoleLogger });
 

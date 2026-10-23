@@ -456,7 +456,7 @@ async function getTimelineBuckets(
   const response = await options.http.json<TimelineBucketResponseDto[]>({
     auth: true,
     feature: "Photos",
-    path: "/timeline/buckets?order=desc&orderBy=takenAt&visibility=timeline&withStacked=true",
+    path: "/timeline/buckets?order=desc&orderBy=takenAt&visibility=timeline&withStacked=true&withPartners=true",
     validate: isTimelineBucketResponseList
   });
 
@@ -481,7 +481,7 @@ async function getTimelineBucketPage(options: {
   const response = await options.http.json<TimelineBucketAssetsResponseDto>({
     auth: true,
     feature: "Photos",
-    path: `/timeline/bucket?timeBucket=${encodeURIComponent(bucket.timeBucket)}&order=desc&orderBy=takenAt&visibility=timeline&withStacked=true`,
+    path: `/timeline/bucket?timeBucket=${encodeURIComponent(bucket.timeBucket)}&order=desc&orderBy=takenAt&visibility=timeline&withStacked=true&withPartners=true`,
     validate: isTimelineBucketAssetsResponse
   });
 
@@ -529,7 +529,7 @@ function buildAlbumAssetSearchBody(
 }
 
 const recentlyAddedQuery =
-  "order=desc&orderBy=createdAt&visibility=timeline&isTrashed=false&withStacked=true";
+  "order=desc&orderBy=createdAt&visibility=timeline&isTrashed=false&withStacked=true&withPartners=true";
 
 // Recently Added pages one upload month at a time, newest first. The first
 // page fetches the month list once; each later token names its month by

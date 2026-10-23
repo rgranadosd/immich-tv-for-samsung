@@ -109,12 +109,12 @@ describe("Settings dirty state on Chromium 63", () => {
 });
 
 describe("Settings remote navigation and actions", () => {
-  it("starts on the Connection section and opens panels with Right", () => {
+  it("starts with Connection visible and moves between navigation and controls", () => {
     mount();
     controller!.show({ allowBack: true });
 
     expect(document.activeElement).toBe(byId("settings-section-connection"));
-    expect(byId("settings-panel-connection").hidden).toBe(true);
+    expect(byId("settings-panel-connection").hidden).toBe(false);
     expect(byId<HTMLInputElement>("server-url").value).toBe("https://immich.example");
 
     pressKey(remoteKeys.right);
@@ -122,11 +122,12 @@ describe("Settings remote navigation and actions", () => {
     expect(document.activeElement).toBe(byId("server-url"));
 
     pressKey(remoteKeys.left);
-    expect(byId("settings-panel-connection").hidden).toBe(true);
+    expect(byId("settings-panel-connection").hidden).toBe(false);
     expect(document.activeElement).toBe(byId("settings-section-connection"));
 
     pressKey(remoteKeys.down);
     expect(document.activeElement).toBe(byId("settings-section-display"));
+    expect(byId("settings-panel-display").hidden).toBe(false);
     pressKey(remoteKeys.enter);
     expect(byId("settings-panel-display").hidden).toBe(false);
     expect(document.activeElement).toBe(byId("autoplay-videos"));

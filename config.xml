@@ -4,13 +4,13 @@
         id="https://github.com/rfsmason/immich-tv-for-samsung"
         version="0.1.0"
         viewmodes="maximized">
-  <tizen:application id="imchTV0001.ImmichTV" package="imchTV0001" required_version="5.0" />
+  <tizen:application id="imchTV0001.ImmichTV" package="imchTV0001" required_version="4.0" />
   <content src="index.html" />
   <access origin="*" subdomains="true" />
   <feature name="http://tizen.org/feature/screen.size.all" />
   <icon src="icon.png" />
-  <name>Immich TV for Samsung</name>
-  <description>A read-only Immich photo viewer for Samsung Tizen TV.</description>
+  <name>Fotos</name>
+  <description>Your private photo library on Samsung TV.</description>
   <author href="https://github.com/rfsmason">rfsmason</author>
   <tizen:profile name="tv-samsung" />
   <tizen:privilege name="http://tizen.org/privilege/internet" />

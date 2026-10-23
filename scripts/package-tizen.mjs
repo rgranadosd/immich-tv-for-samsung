@@ -18,6 +18,7 @@ const runtimeRoot = resolve(root, "dist");
 const stageDir = resolve(root, ".tizen", "package-src");
 const buildResultDir = resolve(stageDir, ".buildResult");
 const packagePath = resolve(buildResultDir, "ImmichTV.wgt");
+const unsignedPackagePath = resolve(root, ".tizen", "ImmichTV-unsigned.wgt");
 const stageOnly = process.argv.includes("--stage-only");
 const tizenCli =
   process.env.TIZEN_CLI || resolve(homedir(), "tizen-studio", "tools", "ide", "bin", "tizen");
@@ -36,10 +37,10 @@ async function stageRuntimeFiles() {
   console.log(`Staged ${runtimeFiles.length} runtime files in ${stageDir}`);
 }
 
-function run(command, args) {
+function run(command, args, options = {}) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, {
-      cwd: root,
+      cwd: options.cwd || root,
       env: process.env,
       stdio: "inherit"
     });
@@ -84,7 +85,10 @@ async function main() {
   loadTizenEnv(root);
   const { TIZEN_CERT_PROFILE: profile } = requireTizenEnv(["TIZEN_CERT_PROFILE"]);
 
-  await run(tizenCli, ["build-web", "--", stageDir]);
+  await rm(unsignedPackagePath, { force: true });
+  await rm(buildResultDir, { force: true, recursive: true });
+  await mkdir(buildResultDir, { recursive: true });
+  await run("zip", ["-q", "-9", unsignedPackagePath, ...runtimeFiles], { cwd: stageDir });
   await run(tizenCli, [
     "package",
     "-t",
@@ -94,9 +98,10 @@ async function main() {
     "-o",
     buildResultDir,
     "--",
-    buildResultDir
+    unsignedPackagePath
   ]);
   await normalizePackageFilename();
+  await rm(unsignedPackagePath, { force: true });
 
   console.log(`Package ready: ${packagePath}`);
 }

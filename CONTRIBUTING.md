@@ -6,7 +6,7 @@ Thanks for your interest in Immich TV for Samsung, an unofficial, read-only Sams
 
 - **Open an issue first** for anything bigger than a small fix, so we can agree the approach before you spend time on it.
 - **The app is read-only.** Uploading, editing, deleting and administration stay in Immich.
-- **It targets Tizen 5.0 (2019 Samsung TVs), whose browser engine is Chromium 63.** Code that works in a current browser can still fail on the TV. The build and lint checks enforce the Chromium 63 rules; don't work around them.
+- **It targets Tizen 4.0 (2018 Samsung TVs), whose browser engine is Chromium 56.** Code that works in a current browser can still fail on the TV. The build and lint checks enforce the Chromium 56 rules; don't work around them.
 - **Everything must work with the Samsung Smart Remote alone:** arrows, OK, Back and Play/Pause. There is no mouse, touch or hover on a TV.
 - `docs/project-brief.md` holds the roadmap and current status. `AGENTS.md` holds the project's engineering rules, written for both people and AI coding agents. `docs/architecture/` holds the decision records.
 

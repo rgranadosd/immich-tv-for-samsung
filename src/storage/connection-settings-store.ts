@@ -14,21 +14,22 @@ export type ConnectionSettingsStore = {
 const storageKey = "immich-tv.connection";
 
 export function createLocalConnectionSettingsStore(
-  storage: KeyValueStorage
+  storage: KeyValueStorage,
+  defaults: ConnectionSettings | null = null
 ): ConnectionSettingsStore {
   return {
     load() {
       const raw = storage.getItem(storageKey);
 
       if (!raw) {
-        return null;
+        return defaults;
       }
 
       try {
         const parsed = JSON.parse(raw) as Partial<ConnectionSettings>;
 
         if (typeof parsed.serverUrl !== "string" || typeof parsed.apiKey !== "string") {
-          return null;
+          return defaults;
         }
 
         return normalizeConnectionSettings({
@@ -36,7 +37,7 @@ export function createLocalConnectionSettingsStore(
           serverUrl: parsed.serverUrl
         });
       } catch {
-        return null;
+        return defaults;
       }
     },
     save(settings) {

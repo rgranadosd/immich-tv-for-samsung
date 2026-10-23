@@ -174,7 +174,7 @@ export function mountConnectionScreen(
       activeSection = "connection";
       hydrateForm(options.service, options.settingsStore, elements);
       savedSnapshot = readSettingsSnapshot(elements);
-      hideSettingsPanels(elements);
+      showSettingsSection(elements, activeSection);
       disableTextEntry(elements);
       updateDirtyStatus(elements, savedSnapshot);
       startDirtyStatusTimer();
@@ -426,7 +426,7 @@ function handleAction(
   }
 
   if (action === "cancel-exit") {
-    hideSettingsPanels(elements);
+    showSettingsSection(elements, activeSection);
     focusActiveSettingsSection(elements, activeSection);
     setSettingsStatus(elements, "Exit cancelled.");
     return result;
@@ -460,7 +460,7 @@ function handleKeydown(
   if (keyCode === remoteKeys.back) {
     event.preventDefault();
     if (!elements.settingsPanelUnsaved.hidden) {
-      hideSettingsPanels(elements);
+      showSettingsSection(elements, activeSection);
       focusActiveSettingsSection(elements, activeSection);
       setSettingsStatus(elements, "Exit cancelled.");
       return result;
@@ -499,7 +499,6 @@ function handleKeydown(
     } else if (keyCode === remoteKeys.left) {
       event.preventDefault();
       disableTextEntry(elements);
-      hideSettingsPanels(elements);
       focusActiveSettingsSection(elements, activeSection);
     } else if (keyCode === remoteKeys.up) {
       event.preventDefault();
@@ -534,7 +533,6 @@ function handleKeydown(
   switch (keyCode) {
     case remoteKeys.left:
       event.preventDefault();
-      hideSettingsPanels(elements);
       focusActiveSettingsSection(elements, activeSection);
       break;
     case remoteKeys.up:
@@ -648,16 +646,14 @@ function handleSettingsRailKeydown(
 
     if (nextSection) {
       result.activeSection = nextSection;
+      showSettingsSection(elements, nextSection);
     }
-
-    hideSettingsPanels(elements);
 
     return result;
   }
 
   if (keyCode === remoteKeys.left && options.onReturnToShell) {
     event.preventDefault();
-    hideSettingsPanels(elements);
     options.onReturnToShell();
     return result;
   }

@@ -2,11 +2,11 @@
 
 Immich TV for Samsung is an unofficial, TV-first, read-only Samsung Tizen Web Application for browsing an Immich photo library.
 
-The app installs as a native Tizen Web Application on the Samsung QE55Q950R. It connects directly to an Immich server and offers Home, Photos, Albums, People and Memories browsing, Search by people and dates, a full-screen viewer with video and Live Photo playback, a slideshow, and Settings, all operable with the Samsung Smart Remote.
+The app installs as a native Tizen Web Application. It connects directly to an Immich server and offers Home, Photos, Albums, People and Memories browsing, Search by people and dates, a full-screen viewer with video and Live Photo playback, a slideshow, and Settings, all operable with the Samsung Smart Remote.
 
 ## Current Status
 
-- Target device: Samsung QE55Q950RBTXXU, 2019, Tizen 5.0 / Chromium M63. Application ID `imchTV0001.ImmichTV`.
+- Target device: Samsung UE32N4300 series, 2018, Tizen 4.0 / Chromium M56. Application ID `imchTV0001.ImmichTV`.
 - Milestones 1-11.5 are complete on `main`:
   - Home: bounded rails (Recently Added, Favourites, Videos, People, Recently Viewed, Albums and Memories).
   - Photos: the main timeline, with date sections and a timeline rail.
@@ -15,7 +15,7 @@ The app installs as a native Tizen Web Application on the Samsung QE55Q950R. It 
   - Viewer: images, video and Live Photos, slideshow, and a local viewing history.
   - Settings: connection and display preferences, with an unsaved-changes guard.
 - Milestone 11.5, Foundation Hardening and Structural Refactor, passed physical-TV acceptance on 16 October 2026. It covers:
-  - Chromium 63 fixes, with compatibility enforced by lint and static checks;
+  - Chromium 56 fixes, with compatibility enforced by lint and static checks;
   - request timeouts and permission-specific errors;
   - Tizen lifecycle handling and an exit confirmation on Back at the application root;
   - decomposition of the shared collection screen and Home;
@@ -67,11 +67,11 @@ npm run check
 npm run stage:tizen
 ```
 
-- `npm run lint` runs ESLint (including `eslint-plugin-compat` for the `chrome 63` browserslist target) and the project's CSS and DOM-member Chromium 63 compatibility checks.
+- `npm run lint` runs ESLint (including `eslint-plugin-compat` for the `chrome 56` browserslist target) and the project's CSS and DOM-member Chromium 56 compatibility checks.
 - `npm run format` applies Prettier and ESLint fixes; `npm run format:check` verifies formatting.
 - `npm run test:coverage` runs the tests with V8 coverage and enforced minimums for `src/screens` and `src/app`.
-- `npm run build` bundles `src/app/main.ts` for Tizen 5.0 / Chromium M63 into a minified `dist/`. `npm run build:debug` produces an unminified bundle for on-TV diagnosis.
-- `npm run check` verifies the runtime files and manifest, that no source, tooling or source maps reach `dist/`, and that the built bundle uses no Chrome 64+ DOM members.
+- `npm run build` bundles `src/app/main.ts` for Tizen 4.0 / Chromium M56 into a minified `dist/`. `npm run build:debug` produces an unminified bundle for on-TV diagnosis.
+- `npm run check` verifies the runtime files and manifest, that no source, tooling or source maps reach `dist/`, and that the built bundle uses no unsupported DOM members.
 - `npm run stage:tizen` builds and stages exactly the runtime files that are packaged into the widget.
 
 CI runs all of these on every pull request.
@@ -100,12 +100,12 @@ After installing Tizen Studio with the Web CLI and Samsung TV Extension packages
 npm run tizen:package
 ```
 
-This first builds `dist/`, then stages only the production runtime app files under `.tizen/package-src`, builds from that clean directory, signs the widget, and writes `.tizen/package-src/.buildResult/ImmichTV.wgt`.
+This first builds `dist/`, stages only the production runtime app files under `.tizen/package-src`, creates a clean widget, signs it, and writes `.tizen/package-src/.buildResult/ImmichTV.wgt`.
 
-Then install and run the generated package on the TV using the connected target name from:
+On macOS Apple Silicon, install and launch it without Samsung's Intel-only SDB binary:
 
 ```sh
-npm run tizen:devices
+npm run tizen:install -- 192.168.1.168
 ```
 
 More detailed setup notes are in [docs/toolchain.md](docs/toolchain.md).

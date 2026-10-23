@@ -29,7 +29,7 @@ jobs:
       - name: Format check
         run: npm run format:check
 
-      - name: Lint and Chromium 63 compatibility checks
+      - name: Lint and Chromium 56 compatibility checks
         run: npm run lint
 
       - name: Test with enforced coverage

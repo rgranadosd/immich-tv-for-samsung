@@ -5,7 +5,7 @@ import "./runtime";
 // - Multitasking: the app is notified through the document `visibilitychange`
 //   event each time it is hidden or resumed, and reads `document.hidden`.
 //   JavaScript is paused while hidden. (Supported since Chrome 33, so on
-//   Tizen 5.0 / Chromium 63.)
+// Tizen 4.0 / Chromium 56.)
 // - Terminating applications: exit with
 //   tizen.application.getCurrentApplication().exit() (Application API, since
 //   Tizen 2.0, no privilege).

@@ -23,8 +23,8 @@ for (const file of requiredFiles) {
 const configXml = await readFile(resolve(runtimeRoot, "config.xml"), "utf8");
 const indexHtml = await readFile(resolve(runtimeRoot, "index.html"), "utf8");
 
-if (!configXml.includes('required_version="5.0"')) {
-  failures.push('config.xml should target Tizen required_version="5.0".');
+if (!configXml.includes('required_version="4.0"')) {
+  failures.push('config.xml should target Tizen required_version="4.0".');
 }
 
 if (!configXml.includes('<content src="index.html"')) {

@@ -25,6 +25,27 @@ describe("connection settings store", () => {
     expect(store.load()).toBeNull();
   });
 
+  it("uses private build defaults until the user saves an override", () => {
+    const storage = createMemoryStorage();
+    const defaults = {
+      apiKey: "build-key",
+      serverUrl: "http://build.immich"
+    };
+    const store = createLocalConnectionSettingsStore(storage, defaults);
+
+    expect(store.load()).toEqual(defaults);
+
+    store.save({
+      apiKey: "user-key",
+      serverUrl: "http://user.immich"
+    });
+
+    expect(store.load()).toEqual({
+      apiKey: "user-key",
+      serverUrl: "http://user.immich"
+    });
+  });
+
   it("returns null for malformed JSON", () => {
     const store = createLocalConnectionSettingsStore(
       createMemoryStorage({

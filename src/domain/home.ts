@@ -1,4 +1,5 @@
 import type { AlbumAsset } from "./album";
+import { padTwoDigits } from "../utils/number-format";
 
 export type Person = {
   id: string;
@@ -32,5 +33,5 @@ export type Memory = {
 
 // Immich's `for` parameter is a calendar date, not a UTC timestamp.
 export function localMemoryDate(date = new Date()): string {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  return `${date.getFullYear()}-${padTwoDigits(date.getMonth() + 1)}-${padTwoDigits(date.getDate())}`;
 }

@@ -298,7 +298,7 @@ describe("Immich client", () => {
     ]);
 
     expect(fetchImpl).toHaveBeenCalledWith(
-      "http://immich.local:2283/api/timeline/buckets?order=desc&orderBy=takenAt&visibility=timeline&withStacked=true",
+      "http://immich.local:2283/api/timeline/buckets?order=desc&orderBy=takenAt&visibility=timeline&withStacked=true&withPartners=true",
       {
         headers: {
           Accept: "application/json",
@@ -341,7 +341,7 @@ describe("Immich client", () => {
     expect(page.nextPageToken).toBeNull();
     expect(page.total).toBe(71);
     const query =
-      "order=desc&orderBy=createdAt&visibility=timeline&isTrashed=false&withStacked=true";
+      "order=desc&orderBy=createdAt&visibility=timeline&isTrashed=false&withStacked=true&withPartners=true";
     expect(fetchImpl.mock.calls.map(([url]) => url)).toEqual([
       `http://immich.local:2283/api/timeline/buckets?${query}`,
       `http://immich.local:2283/api/timeline/bucket?timeBucket=2026-10-15&${query}`,
@@ -555,7 +555,7 @@ describe("Immich client", () => {
 
   describe("Recently Added paging by upload month", () => {
     const query =
-      "order=desc&orderBy=createdAt&visibility=timeline&isTrashed=false&withStacked=true";
+      "order=desc&orderBy=createdAt&visibility=timeline&isTrashed=false&withStacked=true&withPartners=true";
     const monthAssets = (ids: string[]) =>
       jsonResponse({
         duration: ids.map(() => null),
@@ -972,7 +972,7 @@ describe("Immich client", () => {
 
     expect(fetchImpl).toHaveBeenNthCalledWith(
       2,
-      "http://immich.local:2283/api/timeline/bucket?timeBucket=2026-10-01&order=desc&orderBy=takenAt&visibility=timeline&withStacked=true",
+      "http://immich.local:2283/api/timeline/bucket?timeBucket=2026-10-01&order=desc&orderBy=takenAt&visibility=timeline&withStacked=true&withPartners=true",
       {
         headers: {
           Accept: "application/json",

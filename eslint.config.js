@@ -35,7 +35,7 @@ export default tseslint.config(
     }
   },
   {
-    // Shipped runtime code must run on Tizen 5.0 / Chromium 63 (the
+    // Shipped runtime code must run on Tizen 4.0 / Chromium 56 (the
     // package.json browserslist target). esbuild only transpiles syntax, so
     // this rule catches unsupported globals and ES built-ins. DOM members
     // called on element instances are covered by scripts/check-js-compat.mjs.

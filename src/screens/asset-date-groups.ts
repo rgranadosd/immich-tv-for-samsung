@@ -1,6 +1,7 @@
 import type { AlbumAsset, TimelineBucket } from "../domain/album";
 import type { GridDirection, GridNavigationResult } from "../navigation/grid-navigation";
 import { shortMonthNames, shortWeekdayNames } from "../presentation/date-labels";
+import { padTwoDigits } from "../utils/number-format";
 
 export type AssetDateContext = {
   dayKey: string | null;
@@ -248,7 +249,7 @@ function readDateContext(value: string | null): AssetDateContext | null {
   }
 
   return {
-    dayKey: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
+    dayKey: `${year}-${padTwoDigits(month)}-${padTwoDigits(day)}`,
     label: `${readWeekday(value)} ${day} ${monthName} ${year}`,
     year
   };
